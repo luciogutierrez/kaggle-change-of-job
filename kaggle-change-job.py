@@ -15,8 +15,8 @@ pd.set_option('display.width', None)
 # --------------------------------------------------------------------
 # Extraction
 # --------------------------------------------------------------------
-df_train = pd.read_csv('./datasets/z_train.csv')
-df_target = pd.read_csv('./datasets/z_test.csv')
+df_train = pd.read_csv('./datasets/z_train_change_job.csv')
+df_target = pd.read_csv('./datasets/z_test_change_job.csv')
 
 # --------------------------------------------------------------------
 # Analysis
@@ -45,7 +45,7 @@ df_target = pd.read_csv('./datasets/z_test.csv')
 
 # Selecting variables to include in the model
 # --------------------------------------------------------------------
-def selectingVariablesToModel(df, type):
+def selectingVariablesToModel(df, dataset):
     """
     ['enrollee_id', 'city', 'city_development_index', 'gender',
        'relevent_experience', 'enrolled_university', 'education_level',
@@ -53,16 +53,12 @@ def selectingVariablesToModel(df, type):
        'last_new_job', 'training_hours', 'target']    
     """
     df = df.copy()
-    if type == 0:
-        model_cols = ['enrollee_id','city','city_development_index','gender',
-                      'relevent_experience','enrolled_university','education_level',
-                      'major_discipline', 'experience', 'company_size', 'company_type',
-                      'last_new_job','training_hours','target']
-    else:    
-        model_cols = ['enrollee_id','city','city_development_index','gender',
-                      'relevent_experience','enrolled_university','education_level',
-                      'major_discipline', 'experience', 'company_size', 'company_type',
-                      'last_new_job','training_hours']
+    model_cols = ['enrollee_id','city','city_development_index','gender',
+                    'relevent_experience','enrolled_university','education_level',
+                    'major_discipline', 'experience', 'company_size', 'company_type',
+                    'last_new_job','training_hours']
+    if dataset == 0:
+        model_cols.append('target')
     df = df[model_cols]
     return df
 
